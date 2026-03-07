@@ -3,544 +3,767 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>OpenDoor — Accessibility for the Modern Web</title>
-  <meta name="description" content="OpenDoor helps teams design and build web experiences that work for everyone — regardless of ability. Guides, tools, and community for inclusive development."/>
+  <title>EduVoice — Accessible Learning for Every Student</title>
+  <meta name="description" content="EduVoice makes education accessible for everyone — screen reader users, dyslexic learners, and students with disabilities."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://unpkg.com/mammoth@1.6.0/mammoth.browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <!-- Tesseract.js for OCR (image text recognition) -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 </head>
 <body>
-
-<!-- Skip to content (WCAG 2.4.1) -->
 <a href="#main" class="skip-link">Skip to main content</a>
 
-<!-- ══════════════════════════════════════
-     NAVIGATION  (landmark: navigation)
-══════════════════════════════════════ -->
+<!-- ACCESSIBILITY TOOLBAR -->
+<div class="a11y-toolbar" role="region" aria-label="Accessibility controls">
+  <div class="toolbar-inner">
+    <span class="toolbar-label" aria-hidden="true">Accessibility</span>
+    <div class="toolbar-controls">
+      <div class="toolbar-group" role="group" aria-label="Text size">
+        <button class="toolbar-btn" id="txt-decrease" aria-label="Decrease text size">A−</button>
+        <button class="toolbar-btn" id="txt-reset"    aria-label="Reset text size">A</button>
+        <button class="toolbar-btn" id="txt-increase" aria-label="Increase text size">A+</button>
+      </div>
+      <button class="toolbar-btn toolbar-btn-toggle" id="dyslexia-toggle" aria-pressed="false" aria-label="Toggle dyslexia-friendly Lexend font"><span aria-hidden="true">Aa</span> Dyslexia Font</button>
+      <button class="toolbar-btn toolbar-btn-toggle" id="contrast-toggle" aria-pressed="false" aria-label="Toggle high contrast mode"><span aria-hidden="true">◑</span> High Contrast</button>
+      <button class="toolbar-btn toolbar-btn-toggle" id="readaloud-toggle" aria-pressed="false" aria-label="Toggle read-aloud — click any text to hear it"><span aria-hidden="true">🔊</span> Read Aloud</button>
+      <button class="toolbar-btn toolbar-btn-toggle" id="autoread-toggle" aria-pressed="false" aria-label="Auto-announce section headings as you scroll"><span aria-hidden="true">📢</span> Auto-Guide</button>
+      <button class="toolbar-btn toolbar-btn-toggle" id="isl-toggle-btn" aria-pressed="false" aria-label="Toggle Indian Sign Language panel"><span aria-hidden="true">🤟</span> ISL</button>
+      <button class="toolbar-btn toolbar-btn-toggle" id="focus-mode-btn" aria-pressed="false" aria-label="Toggle focus mode — reduces visual distractions"><span aria-hidden="true">🎯</span> Focus Mode</button>
+    </div>
+  </div>
+</div>
+
+<!-- NAVIGATION -->
 <nav class="site-nav" aria-label="Main navigation">
   <div class="nav-inner">
-    <a href="#" class="nav-brand" aria-label="OpenDoor — Home">
-      OpenDoor<span class="nav-brand-dot" aria-hidden="true">.</span>
-    </a>
-
-    <button
-      class="nav-toggle"
-      id="nav-btn"
-      aria-controls="nav-menu"
-      aria-expanded="false"
-      aria-label="Open navigation menu"
-    >
-      <span class="icon-open"  aria-hidden="true">&#9776;</span>
+    <a href="#" class="nav-brand" aria-label="EduVoice — Home">EduVoice<span class="nav-brand-dot" aria-hidden="true">.</span></a>
+    <button class="nav-toggle" id="nav-btn" aria-controls="nav-menu" aria-expanded="false" aria-label="Open navigation menu">
+      <span class="icon-open" aria-hidden="true">&#9776;</span>
       <span class="icon-close" aria-hidden="true">&#10005;</span>
     </button>
-
     <ul class="nav-list" id="nav-menu" role="list">
-      <li><a href="#why"        aria-current="page">Why</a></li>
-      <li><a href="#principles">Principles</a></li>
-      <li><a href="#features"  >Features</a></li>
-      <li><a href="#stories"   >Stories</a></li>
-      <li><a href="#resources" >Resources</a></li>
+      <li><a href="#why" aria-current="page">Why</a></li>
+      <li><a href="#principles">Pillars</a></li>
+      <li><a href="#lab">Lab</a></li>
+      <li><a href="#quiz">Quiz</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#stories">Stories</a></li>
+      <li><a href="#resources">Resources</a></li>
       <li><a href="#contact" class="nav-cta">Get Started</a></li>
     </ul>
   </div>
 </nav>
 
-<!-- ══════════════════════════════════════
-     MAIN  (landmark: main)
-══════════════════════════════════════ -->
 <main id="main">
 
-  <!-- ── HERO ──────────────────────────── -->
+  <!-- HERO -->
   <header class="hero" aria-labelledby="hero-h1">
-    <span class="hero-bg-text" aria-hidden="true">Open</span>
+    <span class="hero-bg-text" aria-hidden="true">Learn</span>
     <div class="hero-inner">
       <div class="hero-badge anim" aria-hidden="true">
-        <span class="hero-badge-dot"></span>
-        WCAG 2.1 Compliant
+        <span class="hero-badge-dot"></span>WCAG 2.1 AA · Screen Reader · Dyslexia Ready · ISL Support
       </div>
-      <h1 id="hero-h1" class="anim anim-d1">
-        The Web Should Work<br>
-        for <em>Every Single</em> Person
-      </h1>
-      <p class="hero-desc anim anim-d2">
-        OpenDoor gives developers, designers, and teams the tools and knowledge to build digital experiences that are genuinely inclusive — not just technically compliant.
-      </p>
+      <h1 id="hero-h1" class="anim anim-d1">Education Should Work<br>for <em>Every Single</em> Learner</h1>
+      <p class="hero-desc anim anim-d2">EduVoice builds accessible learning from line one — read-aloud lessons, Indian Sign Language support, live captions, dyslexia-friendly fonts, and screen-reader-first design so no student is ever locked out of knowledge.</p>
       <div class="hero-actions anim anim-d3">
-        <a href="#features" class="btn btn-primary">Explore the Platform</a>
-        <a href="#contact"  class="btn btn-ghost"  >Join OpenDoor</a>
+        <a href="#lab"     class="btn btn-primary">Try the Learning Lab</a>
+        <a href="#contact" class="btn btn-ghost">Join EduVoice</a>
       </div>
     </div>
     <span class="hero-scroll-hint" aria-hidden="true">Scroll</span>
   </header>
 
-  <!-- ── STATS ─────────────────────────── -->
+  <!-- STATS -->
   <section class="section" id="why" aria-labelledby="why-h2">
     <div class="container">
       <div class="section-head">
         <p class="section-eyebrow">The Reality</p>
-        <h2 class="section-title" id="why-h2">Inaccessibility Is Not a Small Problem</h2>
-        <p class="section-lead">These numbers aren't rounding errors. They represent hundreds of millions of people locked out of the web every day.</p>
+        <h2 class="section-title" id="why-h2">Inaccessible Education Is Not a Small Problem</h2>
+        <p class="section-lead">These numbers represent millions of students who open a lesson and find a locked door instead of a classroom.</p>
       </div>
-
-      <dl class="stats-row" aria-label="Accessibility statistics">
+      <dl class="stats-row" aria-label="Education accessibility statistics">
         <div class="stat-cell">
-          <dt class="sr-only">People globally living with a disability</dt>
-          <dd class="stat-num" aria-label="1.3 billion">1.3B</dd>
-          <p class="stat-desc">People worldwide living with some form of disability</p>
+          <dt class="sr-only">Students with learning disabilities</dt>
+          <dd class="stat-num" aria-label="1 in 5">1 in 5</dd>
+          <p class="stat-desc">Students has a learning disability — dyslexia, ADHD, or processing disorder</p>
         </div>
         <div class="stat-cell">
-          <dt class="sr-only">Percentage of top websites failing WCAG</dt>
-          <dd class="stat-num" aria-label="96 percent">96%</dd>
-          <p class="stat-desc">Of the top 1 million websites have detectable WCAG failures</p>
+          <dt class="sr-only">EdTech platforms failing screen reader tests</dt>
+          <dd class="stat-num" aria-label="87 percent">87%</dd>
+          <p class="stat-desc">Of popular EdTech platforms fail basic screen reader compatibility tests</p>
         </div>
         <div class="stat-cell">
-          <dt class="sr-only">Global disability market spending power</dt>
-          <dd class="stat-num" aria-label="13 trillion dollars">$13T</dd>
-          <p class="stat-desc">Annual spending power of the global disability community</p>
+          <dt class="sr-only">People with vision impairment globally</dt>
+          <dd class="stat-num" aria-label="253 million">253M</dd>
+          <p class="stat-desc">People globally have vision impairment — millions are students needing audio learning</p>
         </div>
         <div class="stat-cell">
-          <dt class="sr-only">Average number of errors per homepage</dt>
-          <dd class="stat-num" aria-label="50">50</dd>
-          <p class="stat-desc">Average WCAG errors detected per homepage in 2023</p>
+          <dt class="sr-only">Students who benefit from captions</dt>
+          <dd class="stat-num" aria-label="80 percent">80%</dd>
+          <p class="stat-desc">Of all students — not just deaf learners — perform better when captions are available</p>
         </div>
       </dl>
     </div>
   </section>
 
-  <!-- ── WCAG PRINCIPLES ───────────────── -->
+  <!-- PILLARS -->
   <section class="section section-alt" id="principles" aria-labelledby="principles-h2">
     <div class="container">
       <div class="section-head">
-        <p class="section-eyebrow">WCAG 2.1 Foundation</p>
-        <h2 class="section-title" id="principles-h2">Four Principles. One Standard.</h2>
-        <p class="section-lead">Every accessibility requirement traces back to these pillars. Master them and every design decision becomes clearer.</p>
+        <p class="section-eyebrow">The Foundation</p>
+        <h2 class="section-title" id="principles-h2">Four Pillars of Accessible Learning</h2>
+        <p class="section-lead">Every EduVoice feature traces back to one of these pillars. Together they ensure no learner is excluded by design.</p>
       </div>
-
-      <ul class="pillars-grid" aria-label="WCAG 2.1 principles">
-        <li class="pillar" aria-labelledby="pillar-p">
-          <div class="pillar-letter" aria-hidden="true">P</div>
-          <h3 id="pillar-p">Perceivable</h3>
-          <p>Content must be presentable in forms users can perceive. Text alternatives, captions, adaptable layouts, and sufficient contrast all live here.</p>
+      <ul class="pillars-grid" aria-label="Accessible learning pillars">
+        <li class="pillar" aria-labelledby="pillar-a">
+          <div class="pillar-letter" aria-hidden="true">A</div>
+          <h3 id="pillar-a">Auditory</h3>
+          <p>Every lesson is available as audio. Read-aloud, text-to-speech, and podcast-style versions mean screen reader and visually impaired students lose nothing.</p>
         </li>
-        <li class="pillar" aria-labelledby="pillar-o">
-          <div class="pillar-letter" aria-hidden="true">O</div>
-          <h3 id="pillar-o">Operable</h3>
-          <p>All functionality must be reachable via keyboard. No time traps, clear navigation, and enough time for users to read and interact.</p>
+        <li class="pillar" aria-labelledby="pillar-v">
+          <div class="pillar-letter" aria-hidden="true">V</div>
+          <h3 id="pillar-v">Visual</h3>
+          <p>Adjustable text size, dyslexia-friendly fonts, high-contrast modes, and captioned video. Every visual choice is a learner's choice, not a designer's constraint.</p>
         </li>
-        <li class="pillar" aria-labelledby="pillar-u">
-          <div class="pillar-letter" aria-hidden="true">U</div>
-          <h3 id="pillar-u">Understandable</h3>
-          <p>Text must be readable and predictable. Forms must have labels, errors must be described, and instructions must be clear.</p>
+        <li class="pillar" aria-labelledby="pillar-i">
+          <div class="pillar-letter" aria-hidden="true">I</div>
+          <h3 id="pillar-i">Interactive</h3>
+          <p>Quizzes and assessments fully operable by keyboard and screen reader. Voice answers and simplified structures to reduce cognitive overload.</p>
         </li>
-        <li class="pillar" aria-labelledby="pillar-r">
-          <div class="pillar-letter" aria-hidden="true">R</div>
-          <h3 id="pillar-r">Robust</h3>
-          <p>Content must work with current and future assistive technologies. Proper semantics, valid HTML, and ARIA where needed make this possible.</p>
+        <li class="pillar" aria-labelledby="pillar-d">
+          <div class="pillar-letter" aria-hidden="true">D</div>
+          <h3 id="pillar-d">Dyslexia-First</h3>
+          <p>Lexend font options, generous line spacing, short paragraphs, and never relying on colour alone to convey meaning. Readable by design.</p>
         </li>
       </ul>
     </div>
   </section>
 
-  <!-- ── FEATURES ──────────────────────── -->
-  <section class="section" id="features" aria-labelledby="features-h2">
+  <!-- ═══════════════════════════════ LEARNING LAB ═══════════════════════════════ -->
+  <section class="section lab-section" id="lab" aria-labelledby="lab-h2">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-eyebrow">Accessible Learning Lab</p>
+        <h2 class="section-title" id="lab-h2">Upload Anything. Make It Accessible.</h2>
+        <p class="section-lead">Upload a document, image, or video and instantly convert it to a screen-reader-friendly, dyslexia-optimised, captioned experience with Indian Sign Language support.</p>
+      </div>
+
+      <div class="lab-tabs">
+        <div role="tablist" aria-label="Choose media type" class="tab-list">
+          <button role="tab" id="tab-btn-doc" aria-selected="true"  aria-controls="tab-panel-doc" class="tab-btn tab-btn-active"><span aria-hidden="true">📄</span> Document</button>
+          <button role="tab" id="tab-btn-img" aria-selected="false" aria-controls="tab-panel-img" class="tab-btn" tabindex="-1"><span aria-hidden="true">🖼️</span> Image</button>
+          <button role="tab" id="tab-btn-vid" aria-selected="false" aria-controls="tab-panel-vid" class="tab-btn" tabindex="-1"><span aria-hidden="true">🎬</span> Video &amp; Captions</button>
+        </div>
+
+        <!-- DOCUMENT PANEL -->
+        <div role="tabpanel" id="tab-panel-doc" aria-labelledby="tab-btn-doc" class="tab-panel">
+          <div class="upload-zone" id="doc-dropzone">
+            <input type="file" id="doc-file-input" aria-label="Choose document: PDF, Word, Excel, or text file" accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.csv" class="file-input-hidden"/>
+            <label for="doc-file-input" class="upload-label">
+              <span class="upload-icon" aria-hidden="true">📂</span>
+              <span class="upload-primary">Drop your file here or <span class="upload-link">browse</span></span>
+              <span class="upload-formats">PDF · Word (.docx) · Excel (.xlsx) · Plain Text</span>
+            </label>
+          </div>
+          <p class="upload-hint">Processed entirely in your browser — nothing is sent to a server.</p>
+
+          <div id="doc-processing" class="processing-state" hidden>
+            <span class="spinner" aria-hidden="true"></span>
+            <span id="doc-processing-msg" aria-live="polite" aria-atomic="true">Processing your file…</span>
+          </div>
+          <div id="doc-error" class="error-state" hidden role="alert"></div>
+
+          <div id="doc-viewer" class="content-viewer" hidden>
+            <div class="viewer-toolbar" role="toolbar" aria-label="Document accessibility controls">
+              <div id="doc-meta" class="viewer-meta" aria-live="polite"></div>
+              <div class="viewer-actions">
+                <button class="viewer-btn" id="doc-read-btn" aria-pressed="false" aria-label="Read document aloud from current position"><span aria-hidden="true">🔊</span> Read Aloud</button>
+                <button class="viewer-btn" id="doc-stop-btn" aria-label="Stop reading" hidden><span aria-hidden="true">⏹</span> Stop</button>
+                <button class="viewer-btn viewer-btn-toggle" id="doc-isl-btn" aria-pressed="false" aria-label="Show Indian Sign Language while reading"><span aria-hidden="true">🤟</span> ISL</button>
+                <button class="viewer-btn viewer-btn-toggle" id="doc-dyslexia-btn" aria-pressed="false" aria-label="Toggle dyslexia-friendly Lexend font"><span aria-hidden="true">Aa</span> Dyslexia Font</button>
+                <button class="viewer-btn viewer-btn-toggle" id="doc-contrast-btn" aria-pressed="false" aria-label="Toggle high contrast reading mode"><span aria-hidden="true">◑</span> High Contrast</button>
+                <div role="group" aria-label="Document text size" class="viewer-size-group">
+                  <button class="viewer-btn viewer-size" id="doc-txt-sm" aria-label="Small text">S</button>
+                  <button class="viewer-btn viewer-size viewer-size-active" id="doc-txt-md" aria-label="Medium text (default)">M</button>
+                  <button class="viewer-btn viewer-size" id="doc-txt-lg" aria-label="Large text">L</button>
+                  <button class="viewer-btn viewer-size" id="doc-txt-xl" aria-label="Extra-large text">XL</button>
+                </div>
+                <button class="viewer-btn" id="doc-download-btn" aria-label="Download extracted text as plain text file"><span aria-hidden="true">⬇</span> Download</button>
+              </div>
+            </div>
+            <div id="doc-content" class="viewer-content" tabindex="0" role="region" aria-label="Extracted document text"></div>
+          </div>
+        </div>
+
+        <!-- IMAGE PANEL -->
+        <div role="tabpanel" id="tab-panel-img" aria-labelledby="tab-btn-img" class="tab-panel" hidden>
+          <div class="upload-zone" id="img-dropzone">
+            <input type="file" id="img-file-input" aria-label="Choose image file" accept="image/*" class="file-input-hidden"/>
+            <label for="img-file-input" class="upload-label">
+              <span class="upload-icon" aria-hidden="true">🖼️</span>
+              <span class="upload-primary">Drop your image here or <span class="upload-link">browse</span></span>
+              <span class="upload-formats">JPG · PNG · GIF · WebP · SVG</span>
+            </label>
+          </div>
+          <p class="upload-hint">EduVoice will automatically recognise any text in your image (OCR) and show it in Indian Sign Language.</p>
+
+          <div id="img-viewer" class="img-viewer" hidden>
+            <figure class="img-figure">
+              <img id="img-preview" src="" alt="" class="img-preview"/>
+              <figcaption id="img-caption-display" class="img-caption-display" aria-live="polite"></figcaption>
+            </figure>
+
+            <!-- OCR Result Panel -->
+            <div id="img-ocr-panel" class="img-ocr-panel" hidden>
+              <div class="ocr-header">
+                <span class="ocr-label"><span aria-hidden="true">🔍</span> Recognised Text from Image</span>
+                <button class="viewer-btn" id="img-ocr-read-btn" aria-label="Read recognised text aloud"><span aria-hidden="true">🔊</span> Read</button>
+                <button class="viewer-btn" id="img-ocr-isl-btn" aria-label="Show recognised text in Indian Sign Language"><span aria-hidden="true">🤟</span> ISL</button>
+                <button class="viewer-btn" id="img-ocr-copy-btn" aria-label="Copy recognised text"><span aria-hidden="true">📋</span> Copy</button>
+              </div>
+              <div id="img-ocr-text" class="ocr-text-content" tabindex="0" aria-label="Text recognised from image" aria-live="polite"></div>
+            </div>
+
+            <div class="img-controls" role="region" aria-label="Image accessibility controls">
+              <div class="field">
+                <label for="img-alt-input">Image description <span class="req" aria-hidden="true">*</span></label>
+                <textarea id="img-alt-input" rows="3" aria-describedby="img-alt-hint" placeholder="Describe who or what is in this image, any text visible, and the context…"></textarea>
+                <span id="img-alt-hint" class="field-hint">This becomes the spoken description and visible caption. Good descriptions include: what/who, action, setting, any visible text.</span>
+              </div>
+              <div class="img-action-row">
+                <button class="viewer-btn" id="img-ocr-btn" aria-label="Automatically recognise and extract text from this image using OCR"><span aria-hidden="true">🔍</span> Extract Text (OCR)</button>
+                <button class="viewer-btn" id="img-read-btn" aria-label="Read image description aloud"><span aria-hidden="true">🔊</span> Read Description</button>
+                <button class="viewer-btn viewer-btn-toggle" id="img-isl-desc-btn" aria-pressed="false" aria-label="Show description in Indian Sign Language"><span aria-hidden="true">🤟</span> ISL</button>
+                <button class="viewer-btn viewer-btn-toggle" id="img-contrast-btn" aria-pressed="false" aria-label="Toggle high contrast filter"><span aria-hidden="true">◑</span> High Contrast</button>
+                <button class="viewer-btn viewer-btn-toggle" id="img-grayscale-btn" aria-pressed="false" aria-label="Toggle greyscale — simulates colour blindness"><span aria-hidden="true">🔲</span> Greyscale</button>
+                <button class="viewer-btn viewer-btn-toggle" id="img-invert-btn" aria-pressed="false" aria-label="Toggle colour inversion for low vision"><span aria-hidden="true">🔄</span> Invert Colours</button>
+              </div>
+              <div role="group" aria-labelledby="sim-label" class="img-colour-sims">
+                <p class="sim-label" id="sim-label">Colour blindness simulation:</p>
+                <div class="sim-btns">
+                  <button class="sim-btn sim-btn-active" data-filter="none"         aria-pressed="true"  aria-label="No simulation">Normal</button>
+                  <button class="sim-btn" data-filter="protanopia"   aria-pressed="false" aria-label="Simulate red-blind (Protanopia)">Red-blind</button>
+                  <button class="sim-btn" data-filter="deuteranopia" aria-pressed="false" aria-label="Simulate green-blind (Deuteranopia)">Green-blind</button>
+                  <button class="sim-btn" data-filter="tritanopia"   aria-pressed="false" aria-label="Simulate blue-blind (Tritanopia)">Blue-blind</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIDEO PANEL -->
+        <div role="tabpanel" id="tab-panel-vid" aria-labelledby="tab-btn-vid" class="tab-panel" hidden>
+          <div class="upload-zone" id="vid-dropzone">
+            <input type="file" id="vid-file-input" aria-label="Choose video file" accept="video/*" class="file-input-hidden"/>
+            <label for="vid-file-input" class="upload-label">
+              <span class="upload-icon" aria-hidden="true">🎬</span>
+              <span class="upload-primary">Drop your video here or <span class="upload-link">browse</span></span>
+              <span class="upload-formats">MP4 · WebM · MOV · AVI</span>
+            </label>
+          </div>
+          <p class="upload-hint">Upload a lecture video to add live microphone captions, Indian Sign Language, speed control, highlighted reading lines, and repeat sections.</p>
+
+          <div id="vid-viewer" class="vid-viewer" hidden>
+            <!-- Video + ISL side by side -->
+            <div class="vid-isl-layout">
+              <div class="vid-main-col">
+                <div class="vid-wrapper">
+                  <video id="vid-player" controls preload="metadata" aria-label="Uploaded lecture video">
+                    Your browser does not support HTML5 video. Please upgrade to a modern browser.
+                  </video>
+                  <!-- Reading line highlight overlay -->
+                  <div class="vid-reading-line" id="vid-reading-line" hidden aria-hidden="true"></div>
+                </div>
+
+                <!-- Caption panel -->
+                <div class="caption-panel" id="caption-panel" role="region" aria-label="Live captions">
+                  <p id="caption-text" class="caption-text caption-placeholder cap-md">Live captions will appear here when microphone captioning is active.</p>
+                </div>
+
+                <!-- Video toolbar -->
+                <div class="vid-toolbar" role="toolbar" aria-label="Video accessibility controls">
+                  <button class="viewer-btn viewer-btn-toggle" id="vid-caption-btn" aria-pressed="false" aria-label="Start live microphone captions for this video"><span aria-hidden="true">🎤</span> Live Captions</button>
+                  <button class="viewer-btn viewer-btn-toggle" id="vid-isl-btn" aria-pressed="false" aria-label="Toggle ISL alongside captions"><span aria-hidden="true">🤟</span> ISL</button>
+                  <button class="viewer-btn viewer-btn-toggle" id="vid-reading-line-btn" aria-pressed="false" aria-label="Toggle reading line highlight"><span aria-hidden="true">📍</span> Reading Line</button>
+
+                  <!-- Speed control -->
+                  <div role="group" aria-label="Playback speed" class="vid-speed-group">
+                    <span class="toolbar-label-sm" aria-hidden="true">Speed:</span>
+                    <button class="viewer-btn speed-btn" data-speed="0.5" aria-label="0.5× speed">0.5×</button>
+                    <button class="viewer-btn speed-btn" data-speed="0.75" aria-label="0.75× speed">0.75×</button>
+                    <button class="viewer-btn speed-btn speed-btn-active" data-speed="1" aria-label="Normal speed">1×</button>
+                    <button class="viewer-btn speed-btn" data-speed="1.25" aria-label="1.25× speed">1.25×</button>
+                    <button class="viewer-btn speed-btn" data-speed="1.5" aria-label="1.5× speed">1.5×</button>
+                  </div>
+
+                  <!-- Pause & Repeat section -->
+                  <button class="viewer-btn" id="vid-mark-start" aria-label="Mark section start for repeat"><span aria-hidden="true">⏮</span> Mark Start</button>
+                  <button class="viewer-btn" id="vid-mark-end"   aria-label="Mark section end and enable repeat"><span aria-hidden="true">⏭</span> Mark End</button>
+                  <button class="viewer-btn" id="vid-repeat-btn" aria-label="Repeat marked section" hidden><span aria-hidden="true">🔁</span> Repeat Section</button>
+
+                  <!-- Caption size -->
+                  <div role="group" aria-label="Caption text size" class="caption-size-group">
+                    <span class="toolbar-label-sm" aria-hidden="true">Caption size:</span>
+                    <button class="viewer-btn cap-size" id="cap-sm" aria-label="Small captions" aria-pressed="false">A</button>
+                    <button class="viewer-btn cap-size cap-size-active" id="cap-md" aria-label="Medium captions" aria-pressed="true">A</button>
+                    <button class="viewer-btn cap-size" id="cap-lg" aria-label="Large captions" aria-pressed="false">A</button>
+                  </div>
+                  <button class="viewer-btn" id="vid-download-captions" aria-label="Download captions as text file" hidden><span aria-hidden="true">⬇</span> Download Captions</button>
+                </div>
+
+                <!-- Section repeat status -->
+                <div id="vid-repeat-status" class="vid-repeat-status" hidden aria-live="polite"></div>
+              </div>
+
+              <!-- Inline ISL panel for video -->
+              <div class="vid-isl-col" id="vid-isl-col" hidden aria-label="Indian Sign Language for video captions" role="region">
+                <div class="vid-isl-inner">
+                  <p class="vid-isl-title" aria-hidden="true">🤟 Indian Sign Language</p>
+                  <div class="vid-isl-signs" id="vid-isl-signs" aria-hidden="true"></div>
+                  <div class="vid-isl-word" id="vid-isl-word" aria-live="polite"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Standalone mic captions -->
+          <div class="mic-standalone-wrap">
+            <p class="mic-standalone-label">For live lectures — no video file needed:</p>
+            <button class="btn btn-ghost" id="mic-standalone-btn" aria-pressed="false"><span aria-hidden="true">🎤</span> Start Live Lecture Captions</button>
+            <div class="caption-panel caption-panel-standalone" id="caption-panel-standalone" role="region" aria-label="Live lecture captions" hidden>
+              <p id="caption-text-standalone" class="caption-text caption-placeholder cap-md">Speak now — captions will appear here…</p>
+            </div>
+            <button class="viewer-btn" id="standalone-download" aria-label="Download lecture captions as text" hidden><span aria-hidden="true">⬇</span> Download Captions</button>
+          </div>
+        </div>
+
+      </div><!-- /lab-tabs -->
+    </div>
+  </section>
+
+  <!-- ═══ ACCESSIBLE QUIZ SECTION ═══ -->
+  <section class="section" id="quiz" aria-labelledby="quiz-h2">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-eyebrow">Inclusive Assessment</p>
+        <h2 class="section-title" id="quiz-h2">Accessible Quiz System</h2>
+        <p class="section-lead">Answer with your voice, keyboard, or mouse. Every question is screen-reader friendly with simplified structure to reduce cognitive load.</p>
+      </div>
+
+      <div class="quiz-shell" id="quiz-shell" aria-label="Accessible quiz" role="region">
+        <!-- Quiz progress -->
+        <div class="quiz-progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="3" aria-label="Quiz progress" id="quiz-progress-bar">
+          <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
+        </div>
+        <p class="quiz-progress-text" id="quiz-progress-text" aria-live="polite">Question 1 of 3</p>
+
+        <!-- Quiz questions (shown one at a time) -->
+        <div id="quiz-questions-wrap">
+
+          <!-- Q1 -->
+          <div class="quiz-question" id="quiz-q1" data-qidx="0">
+            <div class="quiz-q-header">
+              <span class="quiz-q-num" aria-hidden="true">1</span>
+              <button class="quiz-read-q-btn" aria-label="Read question aloud"><span aria-hidden="true">🔊</span></button>
+            </div>
+            <p class="quiz-q-text" id="quiz-q1-text">Which of the following best describes WCAG 2.1?</p>
+            <fieldset class="quiz-options" aria-labelledby="quiz-q1-text">
+              <legend class="sr-only">Select your answer for question 1</legend>
+              <label class="quiz-option" tabindex="0">
+                <input type="radio" name="q1" value="a" aria-describedby="quiz-q1-text"/>
+                <span class="quiz-option-letter" aria-hidden="true">A</span>
+                <span>A programming framework for building websites</span>
+              </label>
+              <label class="quiz-option" tabindex="0">
+                <input type="radio" name="q1" value="b" aria-describedby="quiz-q1-text"/>
+                <span class="quiz-option-letter" aria-hidden="true">B</span>
+                <span>International guidelines for making web content accessible</span>
+              </label>
+              <label class="quiz-option" tabindex="0">
+                <input type="radio" name="q1" value="c" aria-describedby="quiz-q1-text"/>
+                <span class="quiz-option-letter" aria-hidden="true">C</span>
+                <span>A browser plugin for checking colours</span>
+              </label>
+              <label class="quiz-option" tabindex="0">
+                <input type="radio" name="q1" value="d" aria-describedby="quiz-q1-text"/>
+                <span class="quiz-option-letter" aria-hidden="true">D</span>
+                <span>A government law in India</span>
+              </label>
+            </fieldset>
+            <div class="quiz-voice-row">
+              <button class="viewer-btn quiz-voice-btn" id="quiz-voice-q1" aria-label="Answer by voice for question 1"><span aria-hidden="true">🎤</span> Voice Answer</button>
+              <span class="quiz-voice-hint" id="quiz-voice-hint-q1" aria-live="polite"></span>
+            </div>
+            <div class="quiz-feedback" id="quiz-feedback-q1" hidden role="alert" aria-live="polite"></div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="quiz-question" id="quiz-q2" data-qidx="1" hidden>
+            <div class="quiz-q-header">
+              <span class="quiz-q-num" aria-hidden="true">2</span>
+              <button class="quiz-read-q-btn" aria-label="Read question aloud"><span aria-hidden="true">🔊</span></button>
+            </div>
+            <p class="quiz-q-text" id="quiz-q2-text">What does the Tab key do in EduVoice for visually impaired users?</p>
+            <fieldset class="quiz-options" aria-labelledby="quiz-q2-text">
+              <legend class="sr-only">Select your answer for question 2</legend>
+              <label class="quiz-option" tabindex="0">
+                <input type="radio" name="q2" value="a" aria-describedby="quiz-q2-text"/>
+                <span class="quiz-option-letter" aria-hidden="true">A</span>
+                <span>Opens a new browser tab</span>
+              </label>
+              <label class="quiz-option" tabindex="0">
+                <input type="radio" name="q2" value="b" aria-describedby="quiz-q2-text"/>
+                <span class="quiz-option-letter" aria-hidden="true">B</span>
+                <span>Navigates to each element and reads it aloud</span>
+              </label>
+              <label class="quiz-option" tabindex="0">
+                <input type="radio" name="q2" value="c" aria-describedby="quiz-q2-text"/>
+                <span class="quiz-option-letter" aria-hidden="true">C</span>
+                <span>Changes the font style</span>
+              </label>
+              <label class="quiz-option" tabindex="0">
+                <input type="radio" name="q2" value="d" aria-describedby="quiz-q2-text"/>
+                <span class="quiz-option-letter" aria-hidden="true">D</span>
+                <span>Increases text size</span>
+              </label>
+            </fieldset>
+            <div class="quiz-voice-row">
+              <button class="viewer-btn quiz-voice-btn" id="quiz-voice-q2" aria-label="Answer by voice for question 2"><span aria-hidden="true">🎤</span> Voice Answer</button>
+              <span class="quiz-voice-hint" id="quiz-voice-hint-q2" aria-live="polite"></span>
+            </div>
+            <div class="quiz-feedback" id="quiz-feedback-q2" hidden role="alert" aria-live="polite"></div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="quiz-question" id="quiz-q3" data-qidx="2" hidden>
+            <div class="quiz-q-header">
+              <span class="quiz-q-num" aria-hidden="true">3</span>
+              <button class="quiz-read-q-btn" aria-label="Read question aloud"><span aria-hidden="true">🔊</span></button>
+            </div>
+            <p class="quiz-q-text" id="quiz-q3-text">Which font is recommended for learners with dyslexia?</p>
+            <fieldset class="quiz-options" aria-labelledby="quiz-q3-text">
+              <legend class="sr-only">Select your answer for question 3</legend>
+              <label class="quiz-option" tabindex="0">
+                <input type="radio" name="q3" value="a" aria-describedby="quiz-q3-text"/>
+                <span class="quiz-option-letter" aria-hidden="true">A</span>
+                <span>Comic Sans</span>
+              </label>
+              <label class="quiz-option" tabindex="0">
+                <input type="radio" name="q3" value="b" aria-describedby="quiz-q3-text"/>
+                <span class="quiz-option-letter" aria-hidden="true">B</span>
+                <span>Times New Roman</span>
+              </label>
+              <label class="quiz-option" tabindex="0">
+                <input type="radio" name="q3" value="c" aria-describedby="quiz-q3-text"/>
+                <span class="quiz-option-letter" aria-hidden="true">C</span>
+                <span>Lexend</span>
+              </label>
+              <label class="quiz-option" tabindex="0">
+                <input type="radio" name="q3" value="d" aria-describedby="quiz-q3-text"/>
+                <span class="quiz-option-letter" aria-hidden="true">D</span>
+                <span>Wingdings</span>
+              </label>
+            </fieldset>
+            <div class="quiz-voice-row">
+              <button class="viewer-btn quiz-voice-btn" id="quiz-voice-q3" aria-label="Answer by voice for question 3"><span aria-hidden="true">🎤</span> Voice Answer</button>
+              <span class="quiz-voice-hint" id="quiz-voice-hint-q3" aria-live="polite"></span>
+            </div>
+            <div class="quiz-feedback" id="quiz-feedback-q3" hidden role="alert" aria-live="polite"></div>
+          </div>
+
+        </div><!-- /quiz-questions-wrap -->
+
+        <!-- Quiz navigation -->
+        <div class="quiz-nav" role="group" aria-label="Quiz navigation">
+          <button class="btn btn-ghost" id="quiz-prev-btn" aria-label="Previous question" disabled>← Previous</button>
+          <button class="btn btn-primary" id="quiz-next-btn" aria-label="Next question">Next →</button>
+          <button class="btn btn-primary" id="quiz-submit-btn" aria-label="Submit quiz" hidden>Submit Quiz</button>
+        </div>
+
+        <!-- Quiz result -->
+        <div id="quiz-result" class="quiz-result" hidden role="alert" aria-live="polite">
+          <div class="quiz-result-inner">
+            <div class="quiz-score-circle" id="quiz-score-circle" aria-hidden="true"></div>
+            <p id="quiz-result-text" class="quiz-result-text"></p>
+            <button class="btn btn-primary" id="quiz-restart-btn" aria-label="Restart quiz">Try Again</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section section-alt" id="features" aria-labelledby="features-h2">
     <div class="container">
       <div class="section-head">
         <p class="section-eyebrow">The Platform</p>
-        <h2 class="section-title" id="features-h2">Everything a Team Needs</h2>
-        <p class="section-lead">From automated scanning to component libraries, OpenDoor covers every stage of an accessible build.</p>
+        <h2 class="section-title" id="features-h2">Every Tool a Learner Needs</h2>
+        <p class="section-lead">From read-aloud lessons to accessible quizzes and Indian Sign Language support, EduVoice covers every stage of a student's journey with no barriers built in.</p>
       </div>
-
       <div class="features-layout">
-        <article class="feature-card large" aria-labelledby="feat-audit">
+        <article class="feature-card large" aria-labelledby="feat-readaloud">
           <div>
             <span class="feature-tag">Most Used</span>
-            <div class="feature-icon" aria-hidden="true">🔍</div>
-            <h3 id="feat-audit">Automated Accessibility Audits</h3>
-            <p>Paste any URL and get a full WCAG 2.1 report in under 10 seconds. Missing alt text, contrast failures, unlabelled forms, and broken focus management — caught instantly.</p>
+            <div class="feature-icon" aria-hidden="true">🔊</div>
+            <h3 id="feat-readaloud">Read-Aloud Lessons</h3>
+            <p>Every lesson page has a built-in read-aloud player. Text-to-speech with sentence-level highlighting so learners always know exactly where they are in the content.</p>
           </div>
-          <div class="feature-bignum" aria-label="78 WCAG success criteria checked">78</div>
+          <div class="feature-bignum" aria-label="Works with all major screen readers">SR+</div>
         </article>
-
-        <article class="feature-card" aria-labelledby="feat-contrast">
-          <div class="feature-icon" aria-hidden="true">🎨</div>
-          <h3 id="feat-contrast">Contrast Checker</h3>
-          <p>Real-time AA/AAA ratio checking with accessible colour suggestions generated on the fly.</p>
+        <article class="feature-card" aria-labelledby="feat-isl">
+          <div class="feature-icon" aria-hidden="true">🤟</div>
+          <h3 id="feat-isl">Indian Sign Language</h3>
+          <p>Real-time ISL display alongside read-aloud for any text, document, image, or video caption — bridging the gap for India's Deaf community.</p>
         </article>
-
-        <article class="feature-card" aria-labelledby="feat-keyboard">
-          <div class="feature-icon" aria-hidden="true">⌨️</div>
-          <h3 id="feat-keyboard">Keyboard Navigator</h3>
-          <p>Simulate keyboard-only navigation and visualise tab order, focus rings, and unreachable elements.</p>
+        <article class="feature-card" aria-labelledby="feat-captions">
+          <div class="feature-icon" aria-hidden="true">🎬</div>
+          <h3 id="feat-captions">Live Lecture Captions</h3>
+          <p>Real-time microphone captions for live lectures with ISL support, speed control, reading line highlights, and repeat-section functionality.</p>
         </article>
-
-        <article class="feature-card" aria-labelledby="feat-components">
-          <div class="feature-icon" aria-hidden="true">📦</div>
-          <h3 id="feat-components">Component Library</h3>
-          <p>Copy-paste accessible modals, dropdowns, accordions, and more — correct ARIA and keyboard patterns included.</p>
+        <article class="feature-card" aria-labelledby="feat-ocr">
+          <div class="feature-icon" aria-hidden="true">🔍</div>
+          <h3 id="feat-ocr">Image Text Recognition</h3>
+          <p>Upload any image and OCR extracts all visible text — then explains it in Indian Sign Language. Makes photos, slides, and handwriting accessible.</p>
         </article>
-
-        <article class="feature-card" aria-labelledby="feat-report">
-          <div class="feature-icon" aria-hidden="true">📊</div>
-          <h3 id="feat-report">Compliance Reports</h3>
-          <p>Shareable WCAG reports for stakeholder reviews, legal audits, and procurement processes.</p>
+        <article class="feature-card" aria-labelledby="feat-quizzes">
+          <div class="feature-icon" aria-hidden="true">✅</div>
+          <h3 id="feat-quizzes">Accessible Quizzes</h3>
+          <p>Answer by voice, keyboard, or click. Screen readers announce options and results. Simplified structure reduces cognitive overload for all learners.</p>
+        </article>
+        <article class="feature-card" aria-labelledby="feat-font">
+          <div class="feature-icon" aria-hidden="true">📖</div>
+          <h3 id="feat-font">Dyslexia-Friendly Fonts</h3>
+          <p>Switch the entire platform and uploaded documents to Lexend in one click. Proven to reduce visual stress for dyslexic learners.</p>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- ── STORIES / IMAGES ──────────────── -->
-  <section class="section section-alt" id="stories" aria-labelledby="stories-h2">
+  <!-- STORIES -->
+  <section class="section" id="stories" aria-labelledby="stories-h2">
     <div class="container">
       <div class="section-head">
         <p class="section-eyebrow">Real Impact</p>
-        <h2 class="section-title" id="stories-h2">When Accessibility Is Taken Seriously</h2>
-        <p class="section-lead">Two examples of teams that shipped accessible products and saw measurable results.</p>
+        <h2 class="section-title" id="stories-h2">When Accessible Learning Is Taken Seriously</h2>
+        <p class="section-lead">Two examples of education teams that built accessibility in from the start and saw measurable results.</p>
       </div>
-
       <div class="media-section-grid">
         <div class="media-card">
           <figure>
-            <!--
-              WCAG 1.1.1: Meaningful role="img" + aria-label for non-decorative visual.
-            -->
-            <div
-              class="media-visual media-visual-1"
-              role="img"
-              aria-label="Illustration showing a screen reader user navigating a well-structured webpage with clear headings and landmarks"
-            >
-              <div class="media-visual-grid" aria-hidden="true">
-                <span>🖥️</span>
-                <span>📖</span>
-                <span>🔊</span>
-                <span>✅</span>
-              </div>
+            <div class="media-visual media-visual-1" role="img" aria-label="Illustration of a blind student using a screen reader to listen to a well-structured lesson with audio descriptions and labelled quiz buttons">
+              <div class="media-visual-grid" aria-hidden="true"><span>🎧</span><span>📖</span><span>🔊</span><span>✅</span></div>
             </div>
-            <figcaption>
-              <strong>Screen Reader Overhaul:</strong> A government portal restructured headings, added ARIA landmarks, and rewrote link text. Support calls from AT users dropped 40% in the first quarter.
-            </figcaption>
+            <figcaption><strong>Screen Reader Overhaul:</strong> A university rebuilt its LMS with ARIA landmarks and read-aloud on every page. Blind student course completion rose 62% in one semester.</figcaption>
           </figure>
         </div>
-
         <div class="media-card">
           <figure>
-            <div
-              class="media-visual media-visual-2"
-              role="img"
-              aria-label="Illustration showing a person completing an online checkout using only a keyboard, with clear focus indicators visible on each form field"
-            >
-              <div class="media-visual-grid" aria-hidden="true">
-                <span>⌨️</span>
-                <span>🛒</span>
-                <span>🎯</span>
-                <span>📈</span>
-              </div>
+            <div class="media-visual media-visual-2" role="img" aria-label="Illustration of a dyslexic student adjusting font size and switching to Lexend typeface on a tablet with clear focus indicators">
+              <div class="media-visual-grid" aria-hidden="true"><span>🔠</span><span>🧠</span><span>🎯</span><span>📈</span></div>
             </div>
-            <figcaption>
-              <strong>Keyboard-First Checkout:</strong> An e-commerce team discovered 12% of users relied on keyboard navigation. After fixing tab order and focus management, cart completion rose by 18%.
-            </figcaption>
+            <figcaption><strong>Dyslexia-First Redesign:</strong> A coding bootcamp added Lexend font and text-size controls. Dyslexic students reported 45% less reading fatigue and scores rose 28%.</figcaption>
           </figure>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ── CHECKLIST STRIPE ───────────────── -->
+  <!-- CHECKLIST -->
   <section class="section section-stripe" aria-labelledby="checklist-h2">
     <div class="container">
       <div class="section-head">
-        <p class="section-eyebrow">What We Verify</p>
-        <h2 class="section-title" id="checklist-h2">The OpenDoor WCAG Checklist</h2>
-        <p>Key success criteria our platform checks automatically across every page.</p>
+        <p class="section-eyebrow">What We Guarantee</p>
+        <h2 class="section-title" id="checklist-h2">The EduVoice Accessibility Checklist</h2>
+        <p>Every lesson, quiz, and video is verified against these criteria before it goes live.</p>
       </div>
-
-      <ul class="checklist" role="list" aria-label="WCAG accessibility checklist">
-        <li>
-          <span class="check-icon" aria-hidden="true">✓</span>
-          <div class="check-text">
-            <strong>1.1.1 — Non-text Content</strong>
-            <span>All images, icons, and charts have meaningful alt text or are marked decorative.</span>
-          </div>
-        </li>
-        <li>
-          <span class="check-icon" aria-hidden="true">✓</span>
-          <div class="check-text">
-            <strong>1.4.3 — Contrast (AA)</strong>
-            <span>Normal text at 4.5:1, large text at 3:1 minimum contrast ratio.</span>
-          </div>
-        </li>
-        <li>
-          <span class="check-icon" aria-hidden="true">✓</span>
-          <div class="check-text">
-            <strong>2.1.1 — Keyboard Access</strong>
-            <span>Every interactive element reachable and operable via keyboard alone.</span>
-          </div>
-        </li>
-        <li>
-          <span class="check-icon" aria-hidden="true">✓</span>
-          <div class="check-text">
-            <strong>2.4.1 — Bypass Blocks</strong>
-            <span>Skip navigation link provided to bypass repetitive content.</span>
-          </div>
-        </li>
-        <li>
-          <span class="check-icon" aria-hidden="true">✓</span>
-          <div class="check-text">
-            <strong>2.4.7 — Focus Visible</strong>
-            <span>Keyboard focus indicator clearly visible on all focusable elements.</span>
-          </div>
-        </li>
-        <li>
-          <span class="check-icon" aria-hidden="true">✓</span>
-          <div class="check-text">
-            <strong>3.3.1 — Error Identification</strong>
-            <span>Form errors identified in text with specific, actionable descriptions.</span>
-          </div>
-        </li>
-        <li>
-          <span class="check-icon" aria-hidden="true">✓</span>
-          <div class="check-text">
-            <strong>4.1.2 — Name, Role, Value</strong>
-            <span>All UI components have accessible names, roles, and state via ARIA.</span>
-          </div>
-        </li>
-        <li>
-          <span class="check-icon" aria-hidden="true">✓</span>
-          <div class="check-text">
-            <strong>4.1.3 — Status Messages</strong>
-            <span>Dynamic updates announced to assistive technologies via live regions.</span>
-          </div>
-        </li>
+      <ul class="checklist" role="list" aria-label="EduVoice accessibility checklist">
+        <li><span class="check-icon" aria-hidden="true">✓</span><div class="check-text"><strong>Audio Alternative on Every Lesson</strong><span>Every written lesson has a read-aloud version. No content is text-only.</span></div></li>
+        <li><span class="check-icon" aria-hidden="true">✓</span><div class="check-text"><strong>Indian Sign Language Support</strong><span>ISL shown alongside read-aloud for documents, images, videos, and captions.</span></div></li>
+        <li><span class="check-icon" aria-hidden="true">✓</span><div class="check-text"><strong>Captions on All Video</strong><span>Every lecture ships with synchronised captions and ISL support.</span></div></li>
+        <li><span class="check-icon" aria-hidden="true">✓</span><div class="check-text"><strong>Keyboard-Only Navigation</strong><span>Every quiz, player, and control is fully operable without a mouse.</span></div></li>
+        <li><span class="check-icon" aria-hidden="true">✓</span><div class="check-text"><strong>Screen Reader Announcements</strong><span>Results, progress, and errors are announced via ARIA live regions — not just shown visually.</span></div></li>
+        <li><span class="check-icon" aria-hidden="true">✓</span><div class="check-text"><strong>Reduced Cognitive Overload</strong><span>Focus mode, simplified layouts, one-thing-at-a-time quiz structure, and clear labelling throughout.</span></div></li>
+        <li><span class="check-icon" aria-hidden="true">✓</span><div class="check-text"><strong>Dyslexia Font Available</strong><span>Lexend toggle available globally and in the Learning Lab. Applies to uploaded documents too.</span></div></li>
+        <li><span class="check-icon" aria-hidden="true">✓</span><div class="check-text"><strong>4.5:1 Colour Contrast</strong><span>All text and UI elements meet WCAG AA contrast minimums. No grey text on white backgrounds.</span></div></li>
       </ul>
     </div>
   </section>
 
-  <!-- ── RESOURCES / LINKS ─────────────── -->
+  <!-- RESOURCES -->
   <section class="section" id="resources" aria-labelledby="resources-h2">
     <div class="container">
       <div class="section-head">
         <p class="section-eyebrow">Essential Reading</p>
         <h2 class="section-title" id="resources-h2">Start Here</h2>
-        <p class="section-lead">The canonical references every accessibility practitioner should have open.</p>
+        <p class="section-lead">The references every educator and developer building accessible learning should have open.</p>
       </div>
-
-      <!-- WCAG 2.4.4: descriptive aria-label on every external link -->
-      <nav aria-label="Accessibility reference links" class="resources-grid">
-        <a href="https://www.w3.org/TR/WCAG21/" class="resource-card"
-           target="_blank" rel="noopener noreferrer"
-           aria-label="WCAG 2.1 Official Specification on W3C (opens in new tab)">
+      <nav aria-label="Accessible education reference links" class="resources-grid">
+        <a href="https://www.w3.org/TR/WCAG21/" class="resource-card" target="_blank" rel="noopener noreferrer" aria-label="WCAG 2.1 Specification on W3C (opens in new tab)">
           <span class="resource-ico" aria-hidden="true">📜</span>
-          <div class="resource-body">
-            <strong>WCAG 2.1 Spec<span class="ext-badge" aria-hidden="true">↗</span></strong>
-            <span>The W3C's full Web Content Accessibility Guidelines specification.</span>
-          </div>
+          <div class="resource-body"><strong>WCAG 2.1 Spec<span class="ext-badge" aria-hidden="true">↗</span></strong><span>The W3C's full Web Content Accessibility Guidelines.</span></div>
         </a>
-
-        <a href="https://wave.webaim.org/" class="resource-card"
-           target="_blank" rel="noopener noreferrer"
-           aria-label="WAVE accessibility evaluation tool by WebAIM (opens in new tab)">
+        <a href="https://wave.webaim.org/" class="resource-card" target="_blank" rel="noopener noreferrer" aria-label="WAVE accessibility evaluation tool (opens in new tab)">
           <span class="resource-ico" aria-hidden="true">🌊</span>
-          <div class="resource-body">
-            <strong>WAVE Tool<span class="ext-badge" aria-hidden="true">↗</span></strong>
-            <span>Visual accessibility checker. Paste any URL for instant feedback.</span>
-          </div>
+          <div class="resource-body"><strong>WAVE Tool<span class="ext-badge" aria-hidden="true">↗</span></strong><span>Test any URL for accessibility failures instantly. Free and visual.</span></div>
         </a>
-
-        <a href="https://developer.chrome.com/docs/lighthouse/" class="resource-card"
-           target="_blank" rel="noopener noreferrer"
-           aria-label="Google Lighthouse documentation (opens in new tab)">
-          <span class="resource-ico" aria-hidden="true">🔦</span>
-          <div class="resource-body">
-            <strong>Lighthouse<span class="ext-badge" aria-hidden="true">↗</span></strong>
-            <span>Automated auditing built into Chrome DevTools — free and fast.</span>
-          </div>
+        <a href="https://www.nvaccess.org/download/" class="resource-card" target="_blank" rel="noopener noreferrer" aria-label="Download NVDA screen reader (opens in new tab)">
+          <span class="resource-ico" aria-hidden="true">🔊</span>
+          <div class="resource-body"><strong>NVDA Screen Reader<span class="ext-badge" aria-hidden="true">↗</span></strong><span>Free screen reader for Windows. Essential for testing blind student experiences.</span></div>
         </a>
-
-        <a href="https://webaim.org/resources/contrastchecker/" class="resource-card"
-           target="_blank" rel="noopener noreferrer"
-           aria-label="WebAIM Contrast Checker tool (opens in new tab)">
-          <span class="resource-ico" aria-hidden="true">🎨</span>
-          <div class="resource-body">
-            <strong>Contrast Checker<span class="ext-badge" aria-hidden="true">↗</span></strong>
-            <span>Verify AA and AAA contrast ratios for text and UI elements.</span>
-          </div>
-        </a>
-
-        <a href="https://www.a11yproject.com/" class="resource-card"
-           target="_blank" rel="noopener noreferrer"
-           aria-label="The A11Y Project community website (opens in new tab)">
-          <span class="resource-ico" aria-hidden="true">♿</span>
-          <div class="resource-body">
-            <strong>The A11Y Project<span class="ext-badge" aria-hidden="true">↗</span></strong>
-            <span>Community-driven checklists, articles, and accessibility patterns.</span>
-          </div>
-        </a>
-
-        <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA" class="resource-card"
-           target="_blank" rel="noopener noreferrer"
-           aria-label="MDN ARIA reference documentation (opens in new tab)">
-          <span class="resource-ico" aria-hidden="true">📚</span>
-          <div class="resource-body">
-            <strong>MDN ARIA Reference<span class="ext-badge" aria-hidden="true">↗</span></strong>
-            <span>Complete roles, states, and properties reference on MDN Web Docs.</span>
-          </div>
+        <a href="https://fonts.google.com/specimen/Lexend" class="resource-card" target="_blank" rel="noopener noreferrer" aria-label="Lexend font on Google Fonts (opens in new tab)">
+          <span class="resource-ico" aria-hidden="true">🔠</span>
+          <div class="resource-body"><strong>Lexend Font<span class="ext-badge" aria-hidden="true">↗</span></strong><span>Reduces visual stress for dyslexic readers. Free on Google Fonts.</span></div>
         </a>
       </nav>
     </div>
   </section>
 
-  <!-- ── CONTACT FORM ───────────────────── -->
+  <!-- CONTACT + COMMUNITY FORM -->
   <section class="section section-alt" id="contact" aria-labelledby="contact-h2">
     <div class="container">
       <div class="section-head">
         <p class="section-eyebrow">Get Involved</p>
-        <h2 class="section-title" id="contact-h2">Join the OpenDoor Community</h2>
-        <p class="section-lead">Developers, designers, product managers, and advocates — there's a place for you.</p>
+        <h2 class="section-title" id="contact-h2">Join the EduVoice Community</h2>
+        <p class="section-lead">Educators, developers, students, and advocates — every learner deserves a seat in this classroom.</p>
       </div>
-
-      <!-- Native form element provides built-in validation semantics -->
-      <form class="form-shell" id="contact-form" aria-labelledby="contact-h2">
-        <p id="form-note" class="form-intro">
-          Fields marked <span aria-label="asterisk">*</span> are required.
-        </p>
-
+      <form class="form-shell" id="contact-form" aria-labelledby="contact-h2" novalidate>
+        <p id="form-note" class="form-intro">Fields marked <span aria-label="asterisk, required">*</span> are required. Each field will be read aloud as you focus on it.</p>
         <div class="form-row">
           <div class="field">
             <label for="f-name">Full Name <span class="req" aria-hidden="true">*</span></label>
-            <input type="text" id="f-name" name="name"
-                   autocomplete="name" required
-                   aria-describedby="f-name-hint"
-                   placeholder="e.g. Priya Sharma"/>
+            <input type="text" id="f-name" name="name" autocomplete="name" required aria-required="true" aria-describedby="f-name-hint" placeholder="e.g. Priya Sharma"/>
             <span id="f-name-hint" class="field-hint">First and last name.</span>
           </div>
           <div class="field">
             <label for="f-email">Email Address <span class="req" aria-hidden="true">*</span></label>
-            <input type="email" id="f-email" name="email"
-                   autocomplete="email" required
-                   aria-describedby="f-email-hint"
-                   placeholder="you@example.com"/>
+            <input type="email" id="f-email" name="email" autocomplete="email" required aria-required="true" aria-describedby="f-email-hint" placeholder="you@example.com"/>
             <span id="f-email-hint" class="field-hint">We never share your email.</span>
           </div>
         </div>
-
         <div class="field">
           <label for="f-role">Your Role</label>
           <select id="f-role" name="role" aria-describedby="f-role-hint">
             <option value="">— Select your primary role —</option>
-            <option value="dev">Front-end Developer</option>
-            <option value="design">Designer / UX</option>
-            <option value="pm">Product Manager</option>
+            <option value="student">Student / Learner</option>
+            <option value="educator">Educator / Teacher</option>
+            <option value="dev">EdTech Developer</option>
+            <option value="admin">School / University Admin</option>
             <option value="advocate">Accessibility Advocate</option>
-            <option value="qa">QA / Testing</option>
+            <option value="parent">Parent / Carer</option>
             <option value="other">Other</option>
           </select>
-          <span id="f-role-hint" class="field-hint">Helps us tailor content to your needs.</span>
+          <span id="f-role-hint" class="field-hint">Helps us tailor onboarding to your needs.</span>
         </div>
-
         <fieldset>
-          <legend>Areas of Interest</legend>
+          <legend>Learning Needs You Want Supported</legend>
           <div class="checkbox-group">
-            <label class="check-label">
-              <input type="checkbox" name="interest" value="auditing"/>
-              Accessibility Auditing
-            </label>
-            <label class="check-label">
-              <input type="checkbox" name="interest" value="components"/>
-              Accessible Component Libraries
-            </label>
-            <label class="check-label">
-              <input type="checkbox" name="interest" value="testing"/>
-              Screen Reader &amp; AT Testing
-            </label>
-            <label class="check-label">
-              <input type="checkbox" name="interest" value="legal"/>
-              Legal Compliance (ADA / EN 301 549)
-            </label>
+            <label class="check-label"><input type="checkbox" name="interest" value="screenreader"/> Screen Reader Compatibility</label>
+            <label class="check-label"><input type="checkbox" name="interest" value="dyslexia"/> Dyslexia-Friendly Reading</label>
+            <label class="check-label"><input type="checkbox" name="interest" value="isl"/> Indian Sign Language Support</label>
+            <label class="check-label"><input type="checkbox" name="interest" value="captions"/> Video Captions &amp; Transcripts</label>
+            <label class="check-label"><input type="checkbox" name="interest" value="audio"/> Audio Lessons &amp; Read-Aloud</label>
           </div>
         </fieldset>
-
         <div class="field">
           <label for="f-msg">Message <span class="req" aria-hidden="true">*</span></label>
-          <textarea id="f-msg" name="message"
-                    required minlength="20"
-                    aria-describedby="f-msg-hint"
-                    placeholder="Tell us what you're working on…"></textarea>
+          <textarea id="f-msg" name="message" required minlength="20" aria-required="true" aria-describedby="f-msg-hint" placeholder="Tell us about the learner or team you're building for…"></textarea>
           <span id="f-msg-hint" class="field-hint">Minimum 20 characters.</span>
         </div>
-
         <div class="form-footer">
-          <button type="submit" class="btn btn-primary">
-            Send Message
-          </button>
-          <p class="form-privacy">
-            By submitting you agree to our <a href="#">Privacy Policy</a>.
-          </p>
+          <button type="submit" class="btn btn-primary">Send Message</button>
+          <p class="form-privacy">By submitting you agree to our <a href="#">Privacy Policy</a>.</p>
         </div>
-
-        <!-- WCAG 4.1.3: status messages via aria-live -->
-        <div id="form-status" class="form-status"
-             role="status" aria-live="polite" aria-atomic="true"></div>
+        <div id="form-status" class="form-status" role="status" aria-live="polite" aria-atomic="true"></div>
       </form>
     </div>
   </section>
 
 </main>
 
-<!-- ══════════════════════════════════════
-     FOOTER  (landmark: contentinfo)
-══════════════════════════════════════ -->
 <footer class="site-footer" aria-label="Site footer">
   <div class="footer-grid">
     <div>
-      <a href="#" class="footer-brand-name" aria-label="OpenDoor — Go to homepage">
-        OpenDoor<span>.</span>
-      </a>
-      <p class="footer-tagline">
-        Building a web where no one is locked out. Accessibility is a right, not a feature.
-      </p>
+      <a href="#" class="footer-brand-name" aria-label="EduVoice — Go to homepage">EduVoice<span>.</span></a>
+      <p class="footer-tagline">Building a web where every student has a seat in the classroom. Accessibility is a right, not a feature.</p>
     </div>
-
     <nav aria-label="Company footer links">
       <h3>Company</h3>
-      <ul class="footer-links" role="list">
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Our Mission</a></li>
-        <li><a href="#">Blog</a></li>
-        <li><a href="#">Careers</a></li>
-      </ul>
+      <ul class="footer-links" role="list"><li><a href="#">About Us</a></li><li><a href="#">Our Mission</a></li><li><a href="#">Blog</a></li><li><a href="#">Careers</a></li></ul>
     </nav>
-
     <nav aria-label="Platform footer links">
       <h3>Platform</h3>
-      <ul class="footer-links" role="list">
-        <li><a href="#">Audit Tool</a></li>
-        <li><a href="#">Component Library</a></li>
-        <li><a href="#">Learning Hub</a></li>
-        <li><a href="#">API Docs</a></li>
-      </ul>
+      <ul class="footer-links" role="list"><li><a href="#lab">Learning Lab</a></li><li><a href="#">Lesson Library</a></li><li><a href="#">Caption Studio</a></li><li><a href="#">API Docs</a></li></ul>
     </nav>
-
     <nav aria-label="Legal footer links">
       <h3>Legal</h3>
-      <ul class="footer-links" role="list">
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">Terms of Use</a></li>
-        <li><a href="#">Accessibility Statement</a></li>
-        <li><a href="#">Cookie Settings</a></li>
-      </ul>
+      <ul class="footer-links" role="list"><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Use</a></li><li><a href="#">Accessibility Statement</a></li><li><a href="#">Cookie Settings</a></li></ul>
     </nav>
   </div>
-
   <div class="footer-bottom">
-    <small class="footer-copy">© 2025 OpenDoor. Built with WCAG 2.1 AA compliance from line one.</small>
+    <small class="footer-copy">© 2025 EduVoice. Built with WCAG 2.1 AA from line one.</small>
     <div class="footer-badges" aria-label="Accessibility badges">
       <span class="badge">♿ WCAG 2.1 AA</span>
       <span class="badge">⌨️ Keyboard Ready</span>
-      <span class="badge">📖 Screen Reader Tested</span>
+      <span class="badge">🔊 Screen Reader Tested</span>
+      <span class="badge">🤟 ISL Support</span>
+      <span class="badge">🔠 Dyslexia Friendly</span>
     </div>
   </div>
 </footer>
 
-<!-- JS loaded at end of body so DOM is ready -->
+<!-- FEEDBACK WIDGET -->
+<div id="feedback-widget" role="dialog" aria-modal="true" aria-labelledby="feedback-title" aria-describedby="feedback-desc" hidden>
+  <div class="feedback-inner">
+    <button class="feedback-close" id="feedback-close" aria-label="Close feedback panel">✕</button>
+    <h2 class="feedback-title" id="feedback-title"><span aria-hidden="true">💬</span> Accessibility Feedback</h2>
+    <p class="feedback-desc" id="feedback-desc">Tell us if something is hard to use. Your feedback makes EduVoice better for everyone.</p>
+    <div class="feedback-issues" role="group" aria-label="Common issues — select all that apply">
+      <p class="feedback-issues-label">Quick issues:</p>
+      <div class="feedback-tags">
+        <label class="feedback-tag-label"><input type="checkbox" name="fb-issue" value="audio"/> 🔊 Audio not clear</label>
+        <label class="feedback-tag-label"><input type="checkbox" name="fb-issue" value="contrast"/> ◑ Contrast too low</label>
+        <label class="feedback-tag-label"><input type="checkbox" name="fb-issue" value="text"/> 🔠 Text too small</label>
+        <label class="feedback-tag-label"><input type="checkbox" name="fb-issue" value="keyboard"/> ⌨️ Hard to navigate</label>
+        <label class="feedback-tag-label"><input type="checkbox" name="fb-issue" value="confusing"/> 🧩 Page is confusing</label>
+        <label class="feedback-tag-label"><input type="checkbox" name="fb-issue" value="isl"/> 🤟 ISL not working</label>
+      </div>
+    </div>
+    <div class="field">
+      <label for="fb-detail">More detail <span class="field-hint">(optional)</span></label>
+      <textarea id="fb-detail" rows="3" placeholder="Describe what's difficult or what could be improved…" aria-describedby="fb-detail-hint"></textarea>
+      <span id="fb-detail-hint" class="field-hint">Your message helps us prioritise fixes.</span>
+    </div>
+    <div class="feedback-rating" role="group" aria-label="How easy is this page to use?">
+      <p class="feedback-rating-label">Page usability rating:</p>
+      <div class="feedback-stars">
+        <button class="star-btn" data-rating="1" aria-label="1 star — very difficult">★</button>
+        <button class="star-btn" data-rating="2" aria-label="2 stars — difficult">★</button>
+        <button class="star-btn" data-rating="3" aria-label="3 stars — ok">★</button>
+        <button class="star-btn" data-rating="4" aria-label="4 stars — easy">★</button>
+        <button class="star-btn" data-rating="5" aria-label="5 stars — very easy">★</button>
+      </div>
+      <span id="feedback-rating-val" class="sr-only" aria-live="polite"></span>
+    </div>
+    <button class="btn btn-primary" id="feedback-submit-btn" aria-label="Submit accessibility feedback">Send Feedback</button>
+    <div id="feedback-thanks" class="feedback-thanks" hidden role="alert" aria-live="polite"></div>
+  </div>
+</div>
+
+<!-- Feedback trigger button (always visible) -->
+<button class="feedback-trigger" id="feedback-trigger" aria-label="Open accessibility feedback panel" aria-haspopup="dialog">
+  <span aria-hidden="true">💬</span>
+  <span class="feedback-trigger-label">Feedback</span>
+</button>
+
+<!-- ISL floating panel (created by JS) -->
+
+<div id="sr-announce" class="sr-only" aria-live="polite"   aria-atomic="true"></div>
+<div id="sr-alert"    class="sr-only" aria-live="assertive" aria-atomic="true"></div>
+
 <script src="script.js"></script>
 </body>
 </html>
