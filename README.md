@@ -52,42 +52,85 @@ Projects will be evaluated on:
 
 ## 🏷️ Project Title
 
-*Your project name here*
+Open Door
 
 ## 👥 Team Members
 
 | Name | GitHub Username |
-|------|----------------|
-| ...  | ...             |
-| ...  | ...             |
+| Abhinav| Abhinavrao-verma |
+| Rohan| prohansingh |
+| Arun  | ArunShowry000 |
 
 ## ❓ Problem Statement
 
-*What problem are you solving? Who does it affect and why does it matter?*
+Many websites today are not accessible to all users. Common problems include poor colour contrast, missing image descriptions (alt text), forms without labels, and navigation that cannot be used with a keyboard. Because of these issues, people who rely on assistive technologies cannot properly access information on the web.
+
+Our project focuses on solving this problem by building a website that follows the guidelines of Web Content Accessibility Guidelines 2.1. These guidelines help developers design websites that are usable for everyone, including people with disabilities.
 
 ## 🏗️ System Architecture / Design
 
-*Describe or diagram how your system is structured. What are the main components and how do they interact?*
+Our system follows a frontend web architecture designed with accessibility as the core principle. The website is built using semantic HTML, CSS, and ARIA attributes to ensure compatibility with assistive technologies and accessibility tools.
 
 ## 🛠️ Technologies Used
 
-*List the languages, frameworks, libraries, APIs, tools, etc. you used.*
+Languages & Web Technologies
+
+HTML5 – Used to build the structure of the website using semantic elements like header, nav, main, section, and footer.
+
+CSS3 – Used for styling, layout, responsive design, and maintaining accessible colour contrast.
+
+Accessibility Standards
+
+ARIA (Accessible Rich Internet Applications) Attributes – Used to enhance accessibility for assistive technologies such as screen readers.
+
+Web Content Accessibility Guidelines 2.1 – Followed as the main standard for designing an accessible website.
+
+Development Tools
+
+Visual Studio Code – Used for writing and managing the project code.
+
+Accessibility Testing Tools
+
+Google Lighthouse – Used to analyze and improve the accessibility score.
+
+WAVE Web Accessibility Evaluation Tool – Used to detect accessibility issues like missing alt text or form labels.
+
+Colour Contrast Checker – Used to verify that text and background colours meet accessibility standards.
+
+Deployment
+
+GitHub Pages – Used to deploy the website and generate a live URL for demonstration.
 
 ## ⭐ Key Features
 
-*What are the main features of your project?*
+User-Friendly Interface – Clean and intuitive design that makes the platform easy for anyone to use.
+
+Fastech Performance – Optimized for quick loading and smooth user experience.
+
+Secure Data Handling – Ensures user information is protected with reliable security measures.
+
+Responsive Design – Works seamlessly on desktops, tablets, and mobile devices.
 
 ## ⚙️ How It Works
 
-*Explain how your solution works, end to end. Walk through the main flow.*
+User Access – User opens and navigates the platform.
+
+Input Data – User enters required information or interacts with features.
+
+Processing – System processes the request.
+
+Output Result – Results are displayed to the user.
 
 ## 🚀 How to Run
 
-*Step-by-step instructions for running your project locally.*
-
-```bash
-# example
+# Clone the repository
 git clone <repo-url>
+
+# Navigate to the project folder
 cd <project-folder>
-# add your setup/run commands here
-```
+
+# Install dependencies
+npm install
+
+# Run the project
+npm start
