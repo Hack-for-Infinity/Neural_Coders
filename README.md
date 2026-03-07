@@ -44,25 +44,19 @@ Projects will be evaluated on:
 
 ---
 
-# 📁 Fill This In — Your Project README
-
-> ✏️ *Replace everything below this line with your own project details*
-
----
-
 ## 🏷️ Project Title
 
 EduVoice 
 
 ## 👥 Team Members
 
-| Name | GitHub Username |
+| Name    | GitHub Username  |
 
-| Abhinav| Abhinavrao-verma |
+| Abhinav | Abhinavrao-varma |
 
-| Rohan| prohansingh |
+| Rohan   | prohansingh |
 
-| Arun  | ArunShowry000 |
+| Arun    | ArunShowry000 |
 
 ## ❓ Problem Statement
 
